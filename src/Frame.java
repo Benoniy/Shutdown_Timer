@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Frame extends JFrame {
     JPanel content_panel;
-    JTextField hours, minutes, seconds;
+    MyTextField hours, minutes, seconds;
     JButton SSbutton;
 
     String mode = "-s";
@@ -31,61 +31,51 @@ public class Frame extends JFrame {
         content_panel.setLayout(layout);
         GridBagConstraints gbc = new GridBagConstraints();
 
-        Font areaFont = new Font("SansSerif", Font.BOLD, 80);
+        //Font areaFont = new Font("SansSerif", Font.BOLD, 80);
         Font radioFont = new Font("SansSerif", Font.BOLD, 12);
-        Dimension size = new Dimension(150, 150);
 
-        JLabel hLabel = new JLabel("Hours");
-        hLabel.setFont(radioFont);
-        hLabel.setHorizontalAlignment(JLabel.CENTER);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
+        //Row 0
         gbc.gridy = 0;
+        gbc.ipady = 15;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        gbc.gridx = 0;
+        MyLabel hLabel = new MyLabel("Hours");
         content_panel.add(hLabel,gbc);
 
-        JLabel mLabel = new JLabel("Minutes");
-        mLabel.setFont(radioFont);
-        mLabel.setHorizontalAlignment(JLabel.CENTER);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        MyLabel mLabel = new MyLabel("Minutes");
         content_panel.add(mLabel,gbc);
 
-        JLabel sLabel = new JLabel("Seconds");
-        sLabel.setFont(radioFont);
-        sLabel.setHorizontalAlignment(JLabel.CENTER);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
-        gbc.gridy = 0;
+        MyLabel sLabel = new MyLabel("Seconds");
         content_panel.add(sLabel,gbc);
 
-        hours = new JTextField("00");
-        hours.setPreferredSize(size);
-        hours.setHorizontalAlignment(JTextField.CENTER);
-        hours.setFont(areaFont);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
+
+        //Row 1
         gbc.gridy = 1;
+        gbc.ipady = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        gbc.gridx = 0;
+        hours = new MyTextField("00");
         content_panel.add(hours,gbc);
 
-        minutes = new JTextField("00");
-        minutes.setPreferredSize(size);
-        minutes.setHorizontalAlignment(JTextField.CENTER);
-        minutes.setFont(areaFont);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        minutes = new MyTextField("00");
         content_panel.add(minutes,gbc);
 
-        seconds = new JTextField("00");
-        seconds.setPreferredSize(size);
-        seconds.setHorizontalAlignment(JTextField.CENTER);
-        seconds.setFont(areaFont);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 2;
-        gbc.gridy = 1;
+        seconds = new MyTextField("00");
         content_panel.add(seconds,gbc);
 
+
+        //Row 2
+        gbc.gridy = 2;
+        gbc.ipady = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        gbc.gridx = 0;
         ButtonGroup modeSelection = new ButtonGroup();
         JRadioButton modeShutdown = new JRadioButton("Shutdown", true);
         JRadioButton modeRestart = new JRadioButton("Restart", false);
@@ -105,23 +95,19 @@ public class Frame extends JFrame {
         radioPanel.add(modeRestart);
         radioPanel.add(modeLogout);
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
-        gbc.gridx = 0;
-        gbc.gridy = 2;
         content_panel.add(radioPanel,gbc);
 
-
+        gbc.gridx = 2;
         SSbutton = new JButton("Start");
         SSbutton.setFont(radioFont);
         SSbutton.setPreferredSize(new Dimension(150, 40));
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 1;
-        gbc.gridx = 2;
-        gbc.gridy = 2;
+
+        gbc.gridwidth = 1;
         content_panel.add(SSbutton,gbc);
 
 
+        //Action listeners
         hours.addActionListener(actionEvent -> {
             Operations.addValCheck(hours, minutes, seconds);
         });
@@ -131,9 +117,6 @@ public class Frame extends JFrame {
         seconds.addActionListener(actionEvent -> {
             Operations.addValCheck(hours, minutes, seconds);
         });
-
-
-
 
         SSbutton.addActionListener(actionEvent -> {
             Operations.addValCheck(hours, minutes, seconds);
