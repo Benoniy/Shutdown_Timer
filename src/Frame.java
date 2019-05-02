@@ -73,6 +73,20 @@ public class Frame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         gbc.gridx = 0;
+        ButtonGroup timerSelection = new ButtonGroup();
+        MyRadioButton modeCountdown = new MyRadioButton("Countdown", true);
+        MyRadioButton modeAlarm = new MyRadioButton("Time", false);
+
+        timerSelection.add(modeCountdown);
+        timerSelection.add(modeAlarm);
+
+        JPanel timerPanel = new JPanel(new GridLayout(2,1));
+        timerPanel.add(modeCountdown);
+        timerPanel.add(modeAlarm);
+
+        content_panel.add(timerPanel, gbc);
+
+        gbc.gridx = 1;
         ButtonGroup modeSelection = new ButtonGroup();
         MyRadioButton modeShutdown = new MyRadioButton("Shutdown", true);
         MyRadioButton modeRestart = new MyRadioButton("Restart", false);
@@ -82,14 +96,13 @@ public class Frame extends JFrame {
         modeSelection.add(modeRestart);
         modeSelection.add(modeLogout);
 
-        JPanel radioPanel = new JPanel();
-        radioPanel.setLayout(new GridLayout(1, 3));
-        radioPanel.add(modeShutdown);
-        radioPanel.add(modeRestart);
-        radioPanel.add(modeLogout);
+        JPanel modePanel = new JPanel(new GridLayout(3, 1));
+        modePanel.add(modeShutdown);
+        modePanel.add(modeRestart);
+        modePanel.add(modeLogout);
 
-        gbc.gridwidth = 2;
-        content_panel.add(radioPanel,gbc);
+        gbc.gridwidth = 1;
+        content_panel.add(modePanel,gbc);
 
         gbc.gridx = 2;
         SSbutton = new JButton("Start");
@@ -113,6 +126,8 @@ public class Frame extends JFrame {
                 hours.setEditable(false);
                 minutes.setEditable(false);
                 seconds.setEditable(false);
+                modeCountdown.setEnabled(false);
+                modeAlarm.setEnabled(false);
                 modeShutdown.setEnabled(false);
                 modeRestart.setEnabled(false);
                 modeLogout.setEnabled(false);
@@ -127,13 +142,21 @@ public class Frame extends JFrame {
                 }
 
                 SSbutton.setText("Stop");
-                startCount();
+
+                if (modeCountdown.isSelected()){
+                    startCountdown(false);
+                }
+                else {
+                    startCountdown(true);
+                }
             }
             else {
 
                 hours.setEditable(true);
                 minutes.setEditable(true);
                 seconds.setEditable(true);
+                modeCountdown.setEnabled(true);
+                modeAlarm.setEnabled(true);
                 modeShutdown.setEnabled(true);
                 modeRestart.setEnabled(true);
                 modeLogout.setEnabled(true);
@@ -146,8 +169,8 @@ public class Frame extends JFrame {
         this.pack();
     }
 
-    private void startCount(){
-        Thread countThread = new Thread(new Countdown(this));
+    private void startCountdown(boolean alarm){
+        Thread countThread = new Thread(new Timer(this, alarm));
         countThread.start();
     }
 
