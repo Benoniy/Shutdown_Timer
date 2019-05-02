@@ -31,9 +31,6 @@ public class Frame extends JFrame {
         content_panel.setLayout(layout);
         GridBagConstraints gbc = new GridBagConstraints();
 
-        //Font areaFont = new Font("SansSerif", Font.BOLD, 80);
-        Font radioFont = new Font("SansSerif", Font.BOLD, 12);
-
         //Row 0
         gbc.gridy = 0;
         gbc.ipady = 15;
@@ -77,13 +74,9 @@ public class Frame extends JFrame {
 
         gbc.gridx = 0;
         ButtonGroup modeSelection = new ButtonGroup();
-        JRadioButton modeShutdown = new JRadioButton("Shutdown", true);
-        JRadioButton modeRestart = new JRadioButton("Restart", false);
-        JRadioButton modeLogout = new JRadioButton("Log out", false);
-
-        modeShutdown.setFont(radioFont);
-        modeRestart.setFont(radioFont);
-        modeLogout.setFont(radioFont);
+        MyRadioButton modeShutdown = new MyRadioButton("Shutdown", true);
+        MyRadioButton modeRestart = new MyRadioButton("Restart", false);
+        MyRadioButton modeLogout = new MyRadioButton("Log out", false);
 
         modeSelection.add(modeShutdown);
         modeSelection.add(modeRestart);
@@ -100,7 +93,6 @@ public class Frame extends JFrame {
 
         gbc.gridx = 2;
         SSbutton = new JButton("Start");
-        SSbutton.setFont(radioFont);
         SSbutton.setPreferredSize(new Dimension(150, 40));
 
         gbc.gridwidth = 1;
