@@ -3,13 +3,13 @@ import java.awt.*;
 
 
 public class Frame extends JFrame {
-    JPanel content_panel;
+    private JPanel content_panel;
     MyTextField hours, minutes, seconds;
     JButton SSbutton;
 
     String mode = "-s";
 
-    public Frame(){
+    private Frame(){
         setMinimumSize(new Dimension(580, 300));
         setSize(800, 600);
         setTitle("Shutdown Timer");
@@ -26,7 +26,7 @@ public class Frame extends JFrame {
         setVisible(true);
     }
 
-    public void addContents(){
+    private void addContents(){
         GridBagLayout layout = new GridBagLayout();
         content_panel.setLayout(layout);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -100,15 +100,12 @@ public class Frame extends JFrame {
 
 
         //Action listeners
-        hours.addActionListener(actionEvent -> {
-            Operations.addValCheck(hours, minutes, seconds);
-        });
-        minutes.addActionListener(actionEvent -> {
-            Operations.addValCheck(hours, minutes, seconds);
-        });
-        seconds.addActionListener(actionEvent -> {
-            Operations.addValCheck(hours, minutes, seconds);
-        });
+        hours.addActionListener(actionEvent -> Operations.addValCheck(hours, minutes, seconds));
+
+        minutes.addActionListener(actionEvent -> Operations.addValCheck(hours, minutes, seconds));
+
+        seconds.addActionListener(actionEvent -> Operations.addValCheck(hours, minutes, seconds));
+
 
         SSbutton.addActionListener(actionEvent -> {
             Operations.addValCheck(hours, minutes, seconds);
@@ -149,7 +146,7 @@ public class Frame extends JFrame {
         this.pack();
     }
 
-    public void startCount(){
+    private void startCount(){
         Thread countThread = new Thread(new Countdown(this));
         countThread.start();
     }
