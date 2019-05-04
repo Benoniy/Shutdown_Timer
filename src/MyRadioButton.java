@@ -7,5 +7,6 @@ public class MyRadioButton extends JRadioButton {
     public MyRadioButton(String text, boolean bool){
         super(text,bool);
         this.setFont(font);
+        this.setBackground(Frame.backgroundColour);
     }
 }

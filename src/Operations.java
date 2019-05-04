@@ -24,7 +24,15 @@ public class Operations {
 
         if (seconds.getText().length() == 0){seconds.setText("00");}
 
-        long val = Long.parseLong(seconds.getText());
+        int val = 0;
+
+        try{
+            val = Integer.parseInt(seconds.getText());
+        }
+        catch (NumberFormatException ex){
+            val = Integer.MAX_VALUE;
+        }
+
         long up = 0;
         String str;
 
@@ -49,7 +57,14 @@ public class Operations {
 
         //min
         if (minutes.getText().length() == 0){minutes.setText("00");}
-        val = Integer.parseInt(minutes.getText());
+
+        try {
+            val = Integer.parseInt(minutes.getText());
+        }
+        catch (NumberFormatException ex){
+            val = Integer.MAX_VALUE;
+        }
+
         if (val > 1439){val = 1439;}
 
         if (hours.getText().equals("23") && val + up > 59){
@@ -74,8 +89,15 @@ public class Operations {
 
         //hour
         if (hours.getText().length() == 0){hours.setText("00");}
-        val = Integer.parseInt(hours.getText());
-        val += up;
+        try{
+            val = Integer.parseInt(hours.getText());
+            val += up;
+        }
+        catch (NumberFormatException ex){
+            val = Integer.MAX_VALUE;
+        }
+
+
 
         if (val > 23){
             str = String.valueOf(23);
@@ -128,5 +150,18 @@ public class Operations {
         }
 
         return true;
+    }
+
+    public static void flash(MyTextField hours, MyTextField minutes, MyTextField seconds){
+        if (hours.isVisible()){
+            hours.setVisible(false);
+            minutes.setVisible(false);
+            seconds.setVisible(false);
+        }
+        else {
+            hours.setVisible(true);
+            minutes.setVisible(true);
+            seconds.setVisible(true);
+        }
     }
 }

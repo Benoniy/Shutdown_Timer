@@ -6,6 +6,7 @@ public class Frame extends JFrame {
     private JPanel content_panel;
     MyTextField hours, minutes, seconds;
     JButton SSbutton;
+    static Color backgroundColour = new Color(240,240,240);
 
     String mode = "-s";
 
@@ -21,7 +22,9 @@ public class Frame extends JFrame {
             e.printStackTrace();
         }
 
+
         content_panel = new JPanel();
+        content_panel.setBackground(backgroundColour);
         add(content_panel);
         setVisible(true);
     }
@@ -40,11 +43,11 @@ public class Frame extends JFrame {
         MyLabel hLabel = new MyLabel("Hours");
         content_panel.add(hLabel,gbc);
 
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         MyLabel mLabel = new MyLabel("Minutes");
         content_panel.add(mLabel,gbc);
 
-        gbc.gridx = 2;
+        gbc.gridx = 4;
         MyLabel sLabel = new MyLabel("Seconds");
         content_panel.add(sLabel,gbc);
 
@@ -59,10 +62,22 @@ public class Frame extends JFrame {
         content_panel.add(hours,gbc);
 
         gbc.gridx = 1;
+        JLabel colon1 = new JLabel(":");
+        colon1.setPreferredSize(new Dimension(40, 120));
+        colon1.setFont(new Font("SansSerif", Font.BOLD, 110));
+        content_panel.add(colon1,gbc);
+
+        gbc.gridx = 2;
         minutes = new MyTextField("00");
         content_panel.add(minutes,gbc);
 
-        gbc.gridx = 2;
+        gbc.gridx = 3;
+        JLabel colon2 = new JLabel(":");
+        colon2.setPreferredSize(new Dimension(40, 120));
+        colon2.setFont(new Font("SansSerif", Font.BOLD, 110));
+        content_panel.add(colon2,gbc);
+
+        gbc.gridx = 4;
         seconds = new MyTextField("00");
         content_panel.add(seconds,gbc);
 
@@ -86,7 +101,7 @@ public class Frame extends JFrame {
 
         content_panel.add(timerPanel, gbc);
 
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         ButtonGroup modeSelection = new ButtonGroup();
         MyRadioButton modeShutdown = new MyRadioButton("Shutdown", true);
         MyRadioButton modeRestart = new MyRadioButton("Restart", false);
@@ -104,9 +119,9 @@ public class Frame extends JFrame {
         gbc.gridwidth = 1;
         content_panel.add(modePanel,gbc);
 
-        gbc.gridx = 2;
+        gbc.gridx = 4;
         SSbutton = new JButton("Start");
-        SSbutton.setPreferredSize(new Dimension(150, 40));
+        SSbutton.setPreferredSize(new Dimension(130, 40));
 
         gbc.gridwidth = 1;
         content_panel.add(SSbutton,gbc);
@@ -151,6 +166,9 @@ public class Frame extends JFrame {
                 }
             }
             else {
+                hours.setVisible(true);
+                minutes.setVisible(true);
+                seconds.setVisible(true);
 
                 hours.setEditable(true);
                 minutes.setEditable(true);

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Timer implements Runnable {
-    private JTextField hours, minutes, seconds;
+    private MyTextField hours, minutes, seconds;
     private boolean alarm;
     private JButton button;
     private long time;
@@ -59,9 +59,13 @@ public class Timer implements Runnable {
 
             //Got to fix this so that it doesn't just countdown
             while (button.getText().equals("Stop") && duration > 0){
+                if (System.currentTimeMillis() == time + 500){
+                    Operations.flash(hours, minutes, seconds);
+                }
                 if (System.currentTimeMillis() >= time + 1000){
                     time = System.currentTimeMillis();
                     duration -= 1;
+                    Operations.flash(hours, minutes, seconds);
                 }
             }
         }
