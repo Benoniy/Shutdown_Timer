@@ -1,9 +1,8 @@
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class Operations {
 
-    public static JTextField letterCheck(JTextField textField){
+    private static void letterCheck(JTextField textField){
         char[] cArray = textField.getText().toCharArray();
         StringBuilder out = new StringBuilder();
 
@@ -14,7 +13,6 @@ public class Operations {
         }
 
         textField.setText(out.toString());
-        return textField;
     }
 
     public static void addValCheck(JTextField hours, JTextField minutes, JTextField seconds){
@@ -24,7 +22,7 @@ public class Operations {
 
         if (seconds.getText().length() == 0){seconds.setText("00");}
 
-        int val = 0;
+        int val;
 
         try{
             val = Integer.parseInt(seconds.getText());
@@ -112,9 +110,9 @@ public class Operations {
         hours.setText(str);
     }
 
-    public static boolean subOne(JTextField hours, JTextField minutes, JTextField seconds){
+    public static void subOne(JTextField hours, JTextField minutes, JTextField seconds){
         int val = Integer.parseInt(seconds.getText());
-        String str = "";
+        String str;
 
         if (val > 0){
             val -= 1;
@@ -122,7 +120,7 @@ public class Operations {
             if (str.length() == 1){str = "0" + str;}
             seconds.setText(str);
 
-            return true;
+            return;
         }
         else{
             seconds.setText("59");
@@ -134,7 +132,7 @@ public class Operations {
             str = String.valueOf(val);
             if (str.length() == 1){str = "0" + str;}
             minutes.setText(str);
-            return true;
+            return;
         }
         else{
             minutes.setText("59");
@@ -146,10 +144,8 @@ public class Operations {
             str = String.valueOf(val);
             if (str.length() == 1){str = "0" + str;}
             hours.setText(str);
-            return true;
         }
 
-        return true;
     }
 
     public static void flash(MyTextField hours, MyTextField minutes, MyTextField seconds){

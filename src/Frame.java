@@ -11,8 +11,8 @@ public class Frame extends JFrame {
     String mode = "-s";
 
     private Frame(){
-        setMinimumSize(new Dimension(580, 300));
-        setSize(800, 600);
+        setMinimumSize(new Dimension(580, 320));
+        setSize(800, 700);
         setTitle("Shutdown Timer");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -36,7 +36,7 @@ public class Frame extends JFrame {
 
         //Row 0
         gbc.gridy = 0;
-        gbc.ipady = 15;
+        gbc.ipady = 10;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         gbc.gridx = 0;
@@ -51,9 +51,27 @@ public class Frame extends JFrame {
         MyLabel sLabel = new MyLabel("Seconds");
         content_panel.add(sLabel,gbc);
 
-
         //Row 1
         gbc.gridy = 1;
+        gbc.ipady = 0;
+
+        gbc.gridx = 0;
+        JButton h_val_up = new JButton("▲");
+        h_val_up.setPreferredSize(new Dimension(100,15));
+        content_panel.add(h_val_up, gbc);
+
+        gbc.gridx = 2;
+        JButton m_val_up = new JButton("▲");
+        m_val_up.setPreferredSize(new Dimension(100,15));
+        content_panel.add(m_val_up, gbc);
+
+        gbc.gridx = 4;
+        JButton s_val_up = new JButton("▲");
+        s_val_up.setPreferredSize(new Dimension(100,15));
+        content_panel.add(s_val_up, gbc);
+
+        //Row 2
+        gbc.gridy = 2;
         gbc.ipady = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -81,11 +99,53 @@ public class Frame extends JFrame {
         seconds = new MyTextField("00");
         content_panel.add(seconds,gbc);
 
+        //Row 3
+        gbc.gridy = 3;
 
-        //Row 2
-        gbc.gridy = 2;
+        gbc.gridx = 0;
+        JButton h_val_down = new JButton("▼");
+        h_val_down.setPreferredSize(new Dimension(100,15));
+        content_panel.add(h_val_down, gbc);
+
+        gbc.gridx = 2;
+        JButton m_val_down = new JButton("▼");
+        m_val_down.setPreferredSize(new Dimension(100,15));
+        content_panel.add(m_val_down, gbc);
+
+        gbc.gridx = 4;
+        JButton s_val_down = new JButton("▼");
+        s_val_down.setPreferredSize(new Dimension(100,15));
+        content_panel.add(s_val_down, gbc);
+
+        //Row 4
+        gbc.gridy = 4;
+
+        gbc.gridx = 2;
+        content_panel.add(Box.createVerticalStrut(10), gbc);
+
+        //Row 5
+        gbc.gridy = 5;
+
+        gbc.gridx = 0;
+        content_panel.add(new JSeparator(), gbc);
+
+        gbc.gridx = 1;
+        content_panel.add(new JSeparator(), gbc);
+
+        gbc.gridx = 2;
+        content_panel.add(new JSeparator(), gbc);
+
+        gbc.gridx = 3;
+        content_panel.add(new JSeparator(), gbc);
+
+        gbc.gridx = 4;
+        content_panel.add(new JSeparator(), gbc);
+
+
+        //Row 6
+        gbc.gridy = 6;
         gbc.ipady = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.NONE;
 
         gbc.gridx = 0;
         ButtonGroup timerSelection = new ButtonGroup();
@@ -128,11 +188,53 @@ public class Frame extends JFrame {
 
 
         //Action listeners
-        hours.addActionListener(actionEvent -> Operations.addValCheck(hours, minutes, seconds));
+        h_val_up.addActionListener(actionEvent -> {
+            hours.setText(String.valueOf(Integer.parseInt(hours.getText()) + 1));
+            Operations.addValCheck(hours, minutes, seconds);
+        });
 
-        minutes.addActionListener(actionEvent -> Operations.addValCheck(hours, minutes, seconds));
+        h_val_down.addActionListener(actionEvent -> {
+            int count = Integer.parseInt(hours.getText());
+            if (count == 0){
+                count = 25;
+            }
+            hours.setText(String.valueOf(count - 1));
+            Operations.addValCheck(hours, minutes, seconds);
+        });
 
-        seconds.addActionListener(actionEvent -> Operations.addValCheck(hours, minutes, seconds));
+        m_val_up.addActionListener(actionEvent -> {
+            minutes.setText(String.valueOf(Integer.parseInt(minutes.getText()) + 1));
+            Operations.addValCheck(hours, minutes, seconds);
+        });
+
+        m_val_down.addActionListener(actionEvent -> {
+            int count = Integer.parseInt(minutes.getText());
+            if (count == 0){
+                if (Integer.parseInt(hours.getText()) > 0) {
+                    hours.setText(String.valueOf(Integer.parseInt(hours.getText()) - 1));
+                }
+                count = 60;
+            }
+            minutes.setText(String.valueOf(count - 1));
+            Operations.addValCheck(hours, minutes, seconds);
+        });
+
+        s_val_up.addActionListener(actionEvent -> {
+            seconds.setText(String.valueOf(Integer.parseInt(seconds.getText()) + 1));
+            Operations.addValCheck(hours, minutes, seconds);
+        });
+
+        s_val_down.addActionListener(actionEvent -> {
+            int count = Integer.parseInt(seconds.getText());
+            if (count == 0){
+                if (Integer.parseInt(seconds.getText()) > 0) {
+                    minutes.setText(String.valueOf(Integer.parseInt(minutes.getText()) - 1));
+                }
+                count = 60;
+            }
+            seconds.setText(String.valueOf(count - 1));
+            Operations.addValCheck(hours, minutes, seconds);
+        });
 
 
         SSbutton.addActionListener(actionEvent -> {

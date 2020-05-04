@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Timer implements Runnable {
