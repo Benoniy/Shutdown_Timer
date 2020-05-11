@@ -17,13 +17,13 @@ public class Timer implements Runnable {
         this.seconds = frame.seconds;
         this.button = frame.SSbutton;
         this.time = System.currentTimeMillis();
-        this.commandMode = frame.mode;
+        this.commandMode = frame.cmdMode;
 
-        if (!alarm) {
+        if (!alarm) { // Countdown mode
             this.duration = ((Integer.parseInt(hours.getText()) * 60) * 60) + (Integer.parseInt(minutes.getText()) * 60) +
                     Integer.parseInt(seconds.getText());
         }
-        else{
+        else{ // Alarm mode
             LocalTime currentTime = LocalTime.now();
             long currentTimeSec = ((currentTime.getHour() * 60) * 60) + (currentTime.getMinute() * 60) + currentTime.getSecond();
 
@@ -36,7 +36,6 @@ public class Timer implements Runnable {
             else{
                 duration = ((24 * 60) * 60) - (currentTimeSec - targetTime);
             }
-            System.out.println(duration);
         }
     }
 

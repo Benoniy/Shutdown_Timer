@@ -8,7 +8,7 @@ public class Frame extends JFrame {
     JButton SSbutton;
     static Color backgroundColour = new Color(240,240,240);
 
-    String mode = "-s";
+    String cmdMode = "-s";
 
     private Frame(){
         setMinimumSize(new Dimension(580, 320));
@@ -150,7 +150,7 @@ public class Frame extends JFrame {
         gbc.gridx = 0;
         ButtonGroup timerSelection = new ButtonGroup();
         MyRadioButton modeCountdown = new MyRadioButton("Countdown", true);
-        MyRadioButton modeAlarm = new MyRadioButton("Time", false);
+        MyRadioButton modeAlarm = new MyRadioButton("Alarm", false);
 
         timerSelection.add(modeCountdown);
         timerSelection.add(modeAlarm);
@@ -247,13 +247,13 @@ public class Frame extends JFrame {
                 modeRestart.setEnabled(false);
                 modeLogout.setEnabled(false);
                 if (modeShutdown.isSelected()){
-                    mode = "-s";
+                    cmdMode = "-s";
                 }
                 else if (modeRestart.isSelected()){
-                    mode = "-r";
+                    cmdMode = "-r";
                 }
                 else {
-                    mode = "-l";
+                    cmdMode = "-l";
                 }
 
                 SSbutton.setText("Stop");
