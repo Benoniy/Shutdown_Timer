@@ -1,5 +1,7 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 
 public class Frame extends JFrame {
@@ -15,6 +17,13 @@ public class Frame extends JFrame {
         setSize(800, 700);
         setTitle("Shutdown Timer");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        try {
+            this.setIconImage(ImageIO.read(Frame.class.getResource("icon.png")));
+        } catch (Exception e) {
+            ImageIcon img = new ImageIcon("icon.png");
+            this.setIconImage(img.getImage());
+        }
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
