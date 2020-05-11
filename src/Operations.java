@@ -1,52 +1,46 @@
 import javax.swing.*;
 
 public class Operations {
-
-    private static void letterCheck(JTextField textField){
-        char[] cArray = textField.getText().toCharArray();
-        StringBuilder out = new StringBuilder();
-
-        for (char c : cArray){
-            if (c > 47 && c < 58){
-                out.append(c);
-            }
-        }
-
-        textField.setText(out.toString());
-    }
-
-    public static void addValCheck(JTextField hours, JTextField minutes, JTextField seconds){
-        letterCheck(hours);
-        letterCheck(minutes);
-        letterCheck(seconds);
+    public static void valCheck(JTextField hours, JTextField minutes, JTextField seconds){
+        int sec_val;
+        int min_val;
+        int hour_val;
 
         if (seconds.getText().length() == 0){seconds.setText("00");}
-
-        int val;
+        if (minutes.getText().length() == 0){minutes.setText("00");}
+        if (hours.getText().length() == 0){hours.setText("00");}
 
         try{
-            val = Integer.parseInt(seconds.getText());
+            sec_val = Integer.parseInt(seconds.getText());
         }
         catch (NumberFormatException ex){
-            val = Integer.MAX_VALUE;
+            sec_val = Integer.MAX_VALUE;
         }
+
+        try {
+            min_val = Integer.parseInt(minutes.getText());
+        }
+        catch (NumberFormatException ex){
+            min_val = Integer.MAX_VALUE;
+        }
+
 
         long up = 0;
         String str;
 
-        if (val > 86399){val = 86399;}
+        if (sec_val > 86399){sec_val = 86399;}
 
         //sec
-        if (hours.getText().equals("23") && minutes.getText().equals("59") && val > 59){
-            val = 59;
+        if (hours.getText().equals("23") && minutes.getText().equals("59") && sec_val > 59){
+            sec_val = 59;
         }
-        if (val > 59){
-            up = val / 60;
-            long remainder = val % 60;
+        if (sec_val > 59){
+            up = sec_val / 60;
+            long remainder = sec_val % 60;
             str = String.valueOf(remainder);
         }
         else {
-            str = String.valueOf(val);
+            str = String.valueOf(sec_val);
         }
 
         if (str.length() == 1){str = "0" + str;}
@@ -54,56 +48,52 @@ public class Operations {
 
 
         //min
-        if (minutes.getText().length() == 0){minutes.setText("00");}
 
-        try {
-            val = Integer.parseInt(minutes.getText());
-        }
-        catch (NumberFormatException ex){
-            val = Integer.MAX_VALUE;
-        }
 
-        if (val > 1439){val = 1439;}
 
-        if (hours.getText().equals("23") && val + up > 59){
-            val = 59;
+
+
+
+        if (min_val > 1439){min_val = 1439;}
+
+        if (hours.getText().equals("23") && min_val + up > 59){
+            min_val = 59;
         }
         else{
-            val += up;
+            min_val += up;
         }
         up = 0;
 
-        if (val > 59){
-            up = val / 60;
-            long remainder = val % 60;
-
+        if (min_val > 59){
+            up = min_val / 60;
+            long remainder = min_val % 60;
             str = String.valueOf(remainder);
         }
         else {
-            str = String.valueOf(val);
+            str = String.valueOf(min_val);
         }
         if (str.length() == 1){str = "0" + str;}
         minutes.setText(str);
 
         //hour
-        if (hours.getText().length() == 0){hours.setText("00");}
+
         try{
-            val = Integer.parseInt(hours.getText());
-            val += up;
+            hour_val = Integer.parseInt(hours.getText());
+            hour_val += up;
         }
         catch (NumberFormatException ex){
-            val = Integer.MAX_VALUE;
+            hour_val = Integer.MAX_VALUE;
         }
 
 
 
-        if (val > 23){
+        if (hour_val > 23){
             str = String.valueOf(23);
             minutes.setText("59");
             seconds.setText("59");
         }
         else {
-            str = String.valueOf(val);
+            str = String.valueOf(hour_val);
         }
 
         if (str.length() == 1){str = "0" + str;}

@@ -190,7 +190,7 @@ public class Frame extends JFrame {
         //Action listeners
         h_val_up.addActionListener(actionEvent -> {
             hours.setText(String.valueOf(Integer.parseInt(hours.getText()) + 1));
-            Operations.addValCheck(hours, minutes, seconds);
+            Operations.valCheck(hours, minutes, seconds);
         });
 
         h_val_down.addActionListener(actionEvent -> {
@@ -199,12 +199,12 @@ public class Frame extends JFrame {
                 count = 25;
             }
             hours.setText(String.valueOf(count - 1));
-            Operations.addValCheck(hours, minutes, seconds);
+            Operations.valCheck(hours, minutes, seconds);
         });
 
         m_val_up.addActionListener(actionEvent -> {
             minutes.setText(String.valueOf(Integer.parseInt(minutes.getText()) + 1));
-            Operations.addValCheck(hours, minutes, seconds);
+            Operations.valCheck(hours, minutes, seconds);
         });
 
         m_val_down.addActionListener(actionEvent -> {
@@ -216,12 +216,12 @@ public class Frame extends JFrame {
                 count = 60;
             }
             minutes.setText(String.valueOf(count - 1));
-            Operations.addValCheck(hours, minutes, seconds);
+            Operations.valCheck(hours, minutes, seconds);
         });
 
         s_val_up.addActionListener(actionEvent -> {
             seconds.setText(String.valueOf(Integer.parseInt(seconds.getText()) + 1));
-            Operations.addValCheck(hours, minutes, seconds);
+            Operations.valCheck(hours, minutes, seconds);
         });
 
         s_val_down.addActionListener(actionEvent -> {
@@ -233,16 +233,14 @@ public class Frame extends JFrame {
                 count = 60;
             }
             seconds.setText(String.valueOf(count - 1));
-            Operations.addValCheck(hours, minutes, seconds);
+            Operations.valCheck(hours, minutes, seconds);
         });
 
 
         SSbutton.addActionListener(actionEvent -> {
-            Operations.addValCheck(hours, minutes, seconds);
+            Operations.valCheck(hours, minutes, seconds);
             if (SSbutton.getText().equals("Start")){
-                hours.setEditable(false);
-                minutes.setEditable(false);
-                seconds.setEditable(false);
+
                 modeCountdown.setEnabled(false);
                 modeAlarm.setEnabled(false);
                 modeShutdown.setEnabled(false);
@@ -272,9 +270,6 @@ public class Frame extends JFrame {
                 minutes.setVisible(true);
                 seconds.setVisible(true);
 
-                hours.setEditable(true);
-                minutes.setEditable(true);
-                seconds.setEditable(true);
                 modeCountdown.setEnabled(true);
                 modeAlarm.setEnabled(true);
                 modeShutdown.setEnabled(true);

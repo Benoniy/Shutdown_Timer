@@ -4,7 +4,6 @@ import java.awt.*;
 class MyTextField extends JTextField{
     private Dimension size = new Dimension(130, 120);
     private Font font = new Font("SansSerif", Font.BOLD, 110);
-    boolean invisible = false;
 
     MyTextField(String text){
         super(text);
